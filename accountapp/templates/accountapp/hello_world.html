@@ -5,16 +5,14 @@
     <title>Title</title>
 </head>
 <body>
-
-    <form action="/accounts/hello_world" method="post">
+    <form action="/accounts/hello_world/" method="post">
         {% csrf_token %}
-
         <input type="text" name="input_data">
         <input type="submit">
 
     </form>
 
-    <h1>Hello World!</h1>
+    <h1>{{ message }}</h1>
 
 </body>
 </html>
