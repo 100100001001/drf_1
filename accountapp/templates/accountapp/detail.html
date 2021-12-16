@@ -2,21 +2,25 @@
 
 {% block content %}
 
-    <div>
 
-        <!--  Profile 들어가는 부분  -->
-        <div>
+  <div>
+    <!--  Profile 들어가는 부분  -->
+    <div class="my-5">
 
-            <h1>{{ target_user.profile.nickname }}</h1>
-            <p>{{ target_user.data_joind }}</p>
+      {% if target_user.profile.image %}
+      <img style="width: 13rem; height: 13rem; border-radius: 20rem; object-fit: cover;"
+           src="{{ target_user.profile.image.url }}" alt="">
+      {% endif %}
 
-        </div>
-
-
-        <!--    본인 작성한 게시글 리스트 들어갈 부분    -->
-        <div></div>
+      <h1>{{ target_user.profile.nickname }}</h1>
+      <h4>{{ target_user.profile.message }}</h4>
 
     </div>
+
+    <!--  본인 작성한 게시글 리스트 들어갈 부분 -->
+    <div></div>
+
+  </div>
 
 
 {% endblock %}
