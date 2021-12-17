@@ -38,25 +38,26 @@ class Profile(models.Model):
             # 이미지 프로세싱 결과물을 임시저장해놓을 메모리를 할당
             output = BytesIO()
 
-            # 이미지 사이즈를 확인하고 비율 계산
+            # 이미지 사이즈를 확인하고 비율을 계싼
             width, height = img.size
             ratio = height / width
             pixel = 250
 
-            # 원하는 이미지 사이즈로 이미지를 변헝
+            # 원하는 이미지 사이즈로 이미지를 변형
             img = img.convert('RGB')
-            img.thumbnail(pixel, round(pixel * ratio))
+            img.thumbnail((pixel, round(pixel * ratio)))
 
             # 이미지를 이전에 만든 메모리 공간에 저장
             img.save(output, format='JPEG', quality=95)
 
-            # 이미지를 저장하면서 이동한 메모리 포인터를 다시 첫번째 위치로 이동
-            # (밑에 있는 InMemoryUploadedFile 에서 이미지를 읽게 하도록 위함)
+            # 이미지를 저장하면서 이동한 메모리 포인터를
+            # 다시 첫번째 위치로 이동 (밑에 있는 InMemoryUploadedFile 에서
+            # 이미지를 읽게 하도록 위함
             output.seek(0)
 
-            # 장고에서 제공하는 메모리 내 이미지 파일을 장고 파일 객체로 인식하게 도와주는
-            # InMemoryUploadedFile 클래스를 이용해서
-            # 이미지를 읽고, self.thumb 컬럼에 해당 변형된 이미지를 할당
+            # 장고에서 제공하는 메모리 내 이미지 파일을
+            # 장고 파일 객체로 인식하게 도와주는 InMemoryUploadedFile 클래스를 이용해서
+            # 이미지를 읽고, self.thumb 컬럼에 해당 변형된 이미지를 할당합니다
             self.thumb = InMemoryUploadedFile(output, 'ImageField', self.image.name,
                                               'image/jpeg', sys.getsizeof(output), None)
 
